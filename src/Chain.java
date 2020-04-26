@@ -1,6 +1,5 @@
 import java.security.Security;
 import java.util.*;
-import org.bouncycastle.*;
 
 public class Chain {
     static List<String> usernames = new ArrayList<>();
@@ -102,7 +101,7 @@ public class Chain {
     public static void inSystem(String username){
         System.out.println("Welcome " + username);
 
-        System.out.println("Please select an option:\n1.Buy Assets\n2.Show My Transactions\n3.Validate\n4.Logout\n5.Add Money\n6.Sell Assets\n7.Balance");
+        System.out.println("Please select an option:\n1.Buy Assets\n2.Show My Transactions\n3.Validate\n4.Logout\n5.Add Money\n6.Sell Assets\n7.Balance\n8.My assets");
         int num = scan.nextInt();
         int store = 0;
         for (int i = 0; i < usernames.size(); i++) {
@@ -246,7 +245,20 @@ public class Chain {
             }
         }
         else if(num == 7){
-            System.out.println(wallets.get(store).getBalance());
+            System.out.println(wallets.get(store).getBal());
+            inSystem(username);
+        }
+        else if (num == 8){
+            int j = 0;
+            for (Block blo: blockchain) {
+                if(blo.user.equals(username))
+                    break;
+                j++;
+            }
+            for (String ass : wallets.get(j).assetList)
+                System.out.println(ass);
+            if(wallets.get(j).assetList.isEmpty())
+                System.out.println("You don't own any assets");
             inSystem(username);
         }
         else{
